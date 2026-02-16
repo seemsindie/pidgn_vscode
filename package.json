@@ -1,0 +1,41 @@
+{
+  "name": "zzz-templates",
+  "displayName": "Zzz Templates",
+  "description": "Syntax highlighting for Zzz template files (.html.zzz)",
+  "version": "0.1.0",
+  "publisher": "zzz-framework",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "zzz",
+        "aliases": [
+          "Zzz Template",
+          "zzz"
+        ],
+        "extensions": [
+          ".html.zzz",
+          ".zzz"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "zzz",
+        "scopeName": "text.html.zzz",
+        "path": "./syntaxes/zzz.tmLanguage.json",
+        "embeddedLanguages": {
+          "text.html.basic": "html",
+          "source.js": "javascript",
+          "source.css": "css"
+        }
+      }
+    ]
+  }
+}

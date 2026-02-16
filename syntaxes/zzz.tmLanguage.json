@@ -1,0 +1,158 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Zzz Template",
+  "scopeName": "text.html.zzz",
+  "patterns": [
+    { "include": "#zzz-raw-block" },
+    { "include": "#zzz-comment" },
+    { "include": "#zzz-partial" },
+    { "include": "#zzz-yield" },
+    { "include": "#zzz-raw-variable" },
+    { "include": "#zzz-block-close" },
+    { "include": "#zzz-block-else" },
+    { "include": "#zzz-block-open" },
+    { "include": "#zzz-variable" },
+    { "include": "text.html.basic" }
+  ],
+  "repository": {
+    "zzz-raw-block": {
+      "name": "meta.raw-block.zzz",
+      "begin": "\\{\\{\\{\\{raw\\}\\}\\}\\}",
+      "end": "\\{\\{\\{\\{/raw\\}\\}\\}\\}",
+      "beginCaptures": {
+        "0": { "name": "keyword.control.raw.begin.zzz" }
+      },
+      "endCaptures": {
+        "0": { "name": "keyword.control.raw.end.zzz" }
+      },
+      "contentName": "string.unquoted.raw.zzz"
+    },
+    "zzz-yield": {
+      "name": "meta.yield.zzz",
+      "match": "(\\{\\{\\{)(yield(?:_[\\w]+)?)(\\}\\}\\})",
+      "captures": {
+        "1": { "name": "punctuation.definition.expression.begin.zzz" },
+        "2": { "name": "keyword.control.yield.zzz" },
+        "3": { "name": "punctuation.definition.expression.end.zzz" }
+      }
+    },
+    "zzz-partial": {
+      "name": "meta.partial.zzz",
+      "match": "(\\{\\{)(>)\\s*([\\w./-]+)((?:\\s+[\\w]+=\"[^\"]*\")*)\\s*(\\}\\})",
+      "captures": {
+        "1": { "name": "punctuation.definition.expression.begin.zzz" },
+        "2": { "name": "keyword.operator.partial.zzz" },
+        "3": { "name": "entity.name.tag.partial.zzz" },
+        "4": { "name": "string.quoted.double.zzz" },
+        "5": { "name": "punctuation.definition.expression.end.zzz" }
+      }
+    },
+    "zzz-comment": {
+      "name": "comment.block.zzz",
+      "begin": "\\{\\{!",
+      "end": "\\}\\}",
+      "beginCaptures": {
+        "0": { "name": "punctuation.definition.comment.begin.zzz" }
+      },
+      "endCaptures": {
+        "0": { "name": "punctuation.definition.comment.end.zzz" }
+      }
+    },
+    "zzz-raw-variable": {
+      "name": "meta.expression.raw.zzz",
+      "begin": "\\{\\{\\{",
+      "end": "\\}\\}\\}",
+      "beginCaptures": {
+        "0": { "name": "punctuation.definition.expression.begin.zzz" }
+      },
+      "endCaptures": {
+        "0": { "name": "punctuation.definition.expression.end.zzz" }
+      },
+      "patterns": [
+        { "include": "#zzz-pipe" },
+        { "include": "#zzz-field-path" }
+      ]
+    },
+    "zzz-block-open": {
+      "name": "meta.block.open.zzz",
+      "match": "(\\{\\{)(#)(if|each|with)\\s+([\\w.]+)(\\}\\})",
+      "captures": {
+        "1": { "name": "punctuation.definition.expression.begin.zzz" },
+        "2": { "name": "keyword.operator.hash.zzz" },
+        "3": { "name": "keyword.control.zzz" },
+        "4": { "name": "variable.other.zzz" },
+        "5": { "name": "punctuation.definition.expression.end.zzz" }
+      }
+    },
+    "zzz-block-close": {
+      "name": "meta.block.close.zzz",
+      "match": "(\\{\\{)(/)(if|each|with)(\\}\\})",
+      "captures": {
+        "1": { "name": "punctuation.definition.expression.begin.zzz" },
+        "2": { "name": "keyword.operator.slash.zzz" },
+        "3": { "name": "keyword.control.zzz" },
+        "4": { "name": "punctuation.definition.expression.end.zzz" }
+      }
+    },
+    "zzz-block-else": {
+      "name": "meta.block.else.zzz",
+      "match": "(\\{\\{)(else)(\\}\\})",
+      "captures": {
+        "1": { "name": "punctuation.definition.expression.begin.zzz" },
+        "2": { "name": "keyword.control.zzz" },
+        "3": { "name": "punctuation.definition.expression.end.zzz" }
+      }
+    },
+    "zzz-variable": {
+      "name": "meta.expression.zzz",
+      "begin": "\\{\\{(?!\\{|!|#|/|else\\}\\})",
+      "end": "\\}\\}",
+      "beginCaptures": {
+        "0": { "name": "punctuation.definition.expression.begin.zzz" }
+      },
+      "endCaptures": {
+        "0": { "name": "punctuation.definition.expression.end.zzz" }
+      },
+      "patterns": [
+        { "include": "#zzz-pipe" },
+        { "include": "#zzz-field-path" }
+      ]
+    },
+    "zzz-pipe": {
+      "patterns": [
+        {
+          "name": "keyword.operator.pipe.zzz",
+          "match": "\\|"
+        },
+        {
+          "name": "support.function.pipe.zzz",
+          "match": "(?<=\\|\\s*)(truncate|upper|lower|default|pluralize)(?=\\s*[:\\|\\}]|\\s*$)"
+        },
+        {
+          "name": "constant.numeric.pipe-arg.zzz",
+          "match": "(?<=:)\\d+"
+        },
+        {
+          "name": "string.quoted.double.pipe-arg.zzz",
+          "match": "(?<=:)\"[^\"]*\""
+        }
+      ]
+    },
+    "zzz-field-path": {
+      "patterns": [
+        {
+          "name": "variable.other.property.zzz",
+          "match": "(?<=\\.)[\\w]+"
+        },
+        {
+          "name": "variable.other.zzz",
+          "match": "[\\w]+"
+        },
+        {
+          "name": "punctuation.separator.dot.zzz",
+          "match": "\\."
+        }
+      ]
+    }
+  }
+}
