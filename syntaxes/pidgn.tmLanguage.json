@@ -1,0 +1,158 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Pidgn Template",
+  "scopeName": "text.html.pidgn",
+  "patterns": [
+    { "include": "#pidgn-raw-block" },
+    { "include": "#pidgn-comment" },
+    { "include": "#pidgn-partial" },
+    { "include": "#pidgn-yield" },
+    { "include": "#pidgn-raw-variable" },
+    { "include": "#pidgn-block-close" },
+    { "include": "#pidgn-block-else" },
+    { "include": "#pidgn-block-open" },
+    { "include": "#pidgn-variable" },
+    { "include": "text.html.basic" }
+  ],
+  "repository": {
+    "pidgn-raw-block": {
+      "name": "meta.raw-block.pidgn",
+      "begin": "\\{\\{\\{\\{raw\\}\\}\\}\\}",
+      "end": "\\{\\{\\{\\{/raw\\}\\}\\}\\}",
+      "beginCaptures": {
+        "0": { "name": "keyword.control.raw.begin.pidgn" }
+      },
+      "endCaptures": {
+        "0": { "name": "keyword.control.raw.end.pidgn" }
+      },
+      "contentName": "string.unquoted.raw.pidgn"
+    },
+    "pidgn-yield": {
+      "name": "meta.yield.pidgn",
+      "match": "(\\{\\{\\{)(yield(?:_[\\w]+)?)(\\}\\}\\})",
+      "captures": {
+        "1": { "name": "punctuation.definition.expression.begin.pidgn" },
+        "2": { "name": "keyword.control.yield.pidgn" },
+        "3": { "name": "punctuation.definition.expression.end.pidgn" }
+      }
+    },
+    "pidgn-partial": {
+      "name": "meta.partial.pidgn",
+      "match": "(\\{\\{)(>)\\s*([\\w./-]+)((?:\\s+[\\w]+=\"[^\"]*\")*)\\s*(\\}\\})",
+      "captures": {
+        "1": { "name": "punctuation.definition.expression.begin.pidgn" },
+        "2": { "name": "keyword.operator.partial.pidgn" },
+        "3": { "name": "entity.name.tag.partial.pidgn" },
+        "4": { "name": "string.quoted.double.pidgn" },
+        "5": { "name": "punctuation.definition.expression.end.pidgn" }
+      }
+    },
+    "pidgn-comment": {
+      "name": "comment.block.pidgn",
+      "begin": "\\{\\{!",
+      "end": "\\}\\}",
+      "beginCaptures": {
+        "0": { "name": "punctuation.definition.comment.begin.pidgn" }
+      },
+      "endCaptures": {
+        "0": { "name": "punctuation.definition.comment.end.pidgn" }
+      }
+    },
+    "pidgn-raw-variable": {
+      "name": "meta.expression.raw.pidgn",
+      "begin": "\\{\\{\\{",
+      "end": "\\}\\}\\}",
+      "beginCaptures": {
+        "0": { "name": "punctuation.definition.expression.begin.pidgn" }
+      },
+      "endCaptures": {
+        "0": { "name": "punctuation.definition.expression.end.pidgn" }
+      },
+      "patterns": [
+        { "include": "#pidgn-pipe" },
+        { "include": "#pidgn-field-path" }
+      ]
+    },
+    "pidgn-block-open": {
+      "name": "meta.block.open.pidgn",
+      "match": "(\\{\\{)(#)(if|each|with)\\s+([\\w.]+)(\\}\\})",
+      "captures": {
+        "1": { "name": "punctuation.definition.expression.begin.pidgn" },
+        "2": { "name": "keyword.operator.hash.pidgn" },
+        "3": { "name": "keyword.control.pidgn" },
+        "4": { "name": "variable.other.pidgn" },
+        "5": { "name": "punctuation.definition.expression.end.pidgn" }
+      }
+    },
+    "pidgn-block-close": {
+      "name": "meta.block.close.pidgn",
+      "match": "(\\{\\{)(/)(if|each|with)(\\}\\})",
+      "captures": {
+        "1": { "name": "punctuation.definition.expression.begin.pidgn" },
+        "2": { "name": "keyword.operator.slash.pidgn" },
+        "3": { "name": "keyword.control.pidgn" },
+        "4": { "name": "punctuation.definition.expression.end.pidgn" }
+      }
+    },
+    "pidgn-block-else": {
+      "name": "meta.block.else.pidgn",
+      "match": "(\\{\\{)(else)(\\}\\})",
+      "captures": {
+        "1": { "name": "punctuation.definition.expression.begin.pidgn" },
+        "2": { "name": "keyword.control.pidgn" },
+        "3": { "name": "punctuation.definition.expression.end.pidgn" }
+      }
+    },
+    "pidgn-variable": {
+      "name": "meta.expression.pidgn",
+      "begin": "\\{\\{(?!\\{|!|#|/|else\\}\\})",
+      "end": "\\}\\}",
+      "beginCaptures": {
+        "0": { "name": "punctuation.definition.expression.begin.pidgn" }
+      },
+      "endCaptures": {
+        "0": { "name": "punctuation.definition.expression.end.pidgn" }
+      },
+      "patterns": [
+        { "include": "#pidgn-pipe" },
+        { "include": "#pidgn-field-path" }
+      ]
+    },
+    "pidgn-pipe": {
+      "patterns": [
+        {
+          "name": "keyword.operator.pipe.pidgn",
+          "match": "\\|"
+        },
+        {
+          "name": "support.function.pipe.pidgn",
+          "match": "(?<=\\|\\s*)(truncate|upper|lower|default|pluralize)(?=\\s*[:\\|\\}]|\\s*$)"
+        },
+        {
+          "name": "constant.numeric.pipe-arg.pidgn",
+          "match": "(?<=:)\\d+"
+        },
+        {
+          "name": "string.quoted.double.pipe-arg.pidgn",
+          "match": "(?<=:)\"[^\"]*\""
+        }
+      ]
+    },
+    "pidgn-field-path": {
+      "patterns": [
+        {
+          "name": "variable.other.property.pidgn",
+          "match": "(?<=\\.)[\\w]+"
+        },
+        {
+          "name": "variable.other.pidgn",
+          "match": "[\\w]+"
+        },
+        {
+          "name": "punctuation.separator.dot.pidgn",
+          "match": "\\."
+        }
+      ]
+    }
+  }
+}

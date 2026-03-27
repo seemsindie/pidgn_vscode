@@ -1,15 +1,15 @@
-# zzz_vscode
+# pidgn_vscode
 
-Syntax highlighting for zzz template files in VS Code.
+Syntax highlighting for pidgn template files in VS Code.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-A VS Code extension that provides syntax highlighting, auto-closing pairs, and code folding for `.html.zzz` template files used by the zzz web framework.
+A VS Code extension that provides syntax highlighting, auto-closing pairs, and code folding for `.html.pidgn` template files used by the pidgn web framework.
 
 ## Features
 
 - Full HTML syntax highlighting (inherited from VS Code's built-in HTML grammar)
-- Zzz template expression highlighting:
+- Pidgn template expression highlighting:
   - Variables: `{{name}}`, `{{user.name}}`
   - Raw (unescaped) variables: `{{{content}}}`
   - Conditionals: `{{#if cond}}` / `{{else}}` / `{{/if}}`
@@ -25,7 +25,7 @@ A VS Code extension that provides syntax highlighting, auto-closing pairs, and c
 
 ```bash
 # macOS / Linux
-ln -s "$(pwd)" ~/.vscode/extensions/zzz-templates
+ln -s "$(pwd)" ~/.vscode/extensions/pidgn-templates
 
 # Then reload VS Code (Cmd+Shift+P -> "Reload Window")
 ```
@@ -37,28 +37,28 @@ ln -s "$(pwd)" ~/.vscode/extensions/zzz-templates
 npm install -g @vscode/vsce
 
 # Package the extension
-cd zzz_vscode
+cd pidgn_vscode
 vsce package
 
 # Install the .vsix file
-code --install-extension zzz-templates-0.1.0.vsix
+code --install-extension pidgn-templates-0.1.0.vsix
 ```
 
 ## Supported File Extensions
 
-- `.html.zzz` -- HTML templates with zzz expressions
-- `.zzz` -- standalone zzz templates
+- `.html.pidgn` -- HTML templates with pidgn expressions
+- `.pidgn` -- standalone pidgn templates
 
 ## Ecosystem
 
 | Package | Description |
 |---------|-------------|
-| [zzz.zig](https://github.com/seemsindie/zzz.zig) | Core web framework |
-| [zzz_db](https://github.com/seemsindie/zzz_db) | Database ORM (SQLite + PostgreSQL) |
-| [zzz_jobs](https://github.com/seemsindie/zzz_jobs) | Background job processing |
-| [zzz_mailer](https://github.com/seemsindie/zzz_mailer) | Email sending |
-| [zzz_template](https://github.com/seemsindie/zzz_template) | Template engine |
-| [zzz_cli](https://github.com/seemsindie/zzz_cli) | CLI tooling |
+| [pidgn.zig](https://github.com/seemsindie/pidgn) | Core web framework |
+| [pidgn_db](https://github.com/seemsindie/pidgn_db) | Database ORM (SQLite + PostgreSQL) |
+| [pidgn_jobs](https://github.com/seemsindie/pidgn_jobs) | Background job processing |
+| [pidgn_mailer](https://github.com/seemsindie/pidgn_mailer) | Email sending |
+| [pidgn_template](https://github.com/seemsindie/pidgn_template) | Template engine |
+| [pidgn_cli](https://github.com/seemsindie/pidgn_cli) | CLI tooling |
 
 ## License
 

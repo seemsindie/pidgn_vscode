@@ -1,9 +1,9 @@
 {
-  "name": "zzz-templates",
-  "displayName": "Zzz Templates",
-  "description": "Syntax highlighting for Zzz template files (.html.zzz)",
-  "version": "0.1.0",
-  "publisher": "zzz-framework",
+  "name": "pidgn-templates",
+  "displayName": "Pidgn Templates",
+  "description": "Syntax highlighting for Pidgn template files (.html.pidgn)",
+  "version": "0.3.0",
+  "publisher": "pidgn-framework",
   "engines": {
     "vscode": "^1.75.0"
   },
@@ -13,23 +13,23 @@
   "contributes": {
     "languages": [
       {
-        "id": "zzz",
+        "id": "pidgn",
         "aliases": [
-          "Zzz Template",
-          "zzz"
+          "Pidgn Template",
+          "pidgn"
         ],
         "extensions": [
-          ".html.zzz",
-          ".zzz"
+          ".html.pidgn",
+          ".pidgn"
         ],
         "configuration": "./language-configuration.json"
       }
     ],
     "grammars": [
       {
-        "language": "zzz",
-        "scopeName": "text.html.zzz",
-        "path": "./syntaxes/zzz.tmLanguage.json",
+        "language": "pidgn",
+        "scopeName": "text.html.pidgn",
+        "path": "./syntaxes/pidgn.tmLanguage.json",
         "embeddedLanguages": {
           "text.html.basic": "html",
           "source.js": "javascript",
